@@ -19,13 +19,42 @@ const connect_DataBase = supabase.createClient(supabasUrl,supabasKey);
 //     const response = await connect_DataBase.from('todos').select('*');
 // }
 
+const getData = async () => {
+  ul.innerHTML = "";
+
+  const response = await connect_DataBase.from("todos").select("*");
+  const todos = response.data;
+
+  for (let i = 0; i < todos.length; i++) {
+
+    ul.innerHTML += `<li>${todos[i].todo} <button onclick="deleteTodo(${todos[i].id})"><i class="fa-regular fa-trash-can fa-float"></i></button> </li>`;
+
+  }
+};
+getData();
+
+
 const addTodo = async (event) => {
     event.preventDefault();
 
     const todo = input.value
 
-    console.log(todo);
+    // console.log(todo);
 
     await connect_DataBase.from("todos").insert({ todo: todo })
 
+    input.value = "";
+
+    getData();
+
 }
+
+
+
+const deleteTodo = async (id) => {
+  const response = await connect_DataBase.from("todos").delete().eq("id", id);
+
+  if (!response.error) {
+    getData();
+  }
+};

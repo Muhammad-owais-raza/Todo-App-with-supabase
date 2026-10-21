@@ -1,0 +1,376 @@
+/* =========================================================
+   My Todo App — Phase 2: Premium Polish
+   Palette: warm ivory, champagne, elegant beige, muted bronze,
+            deep espresso, soft charcoal, sage accent
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. KEYFRAME ANIMATIONS
+   A gentle fade-up for the card entrance.
+   Only two properties change: opacity and a small Y shift.
+   --------------------------------------------------------- */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ---------------------------------------------------------
+   2. RESET & BASE
+   --------------------------------------------------------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* Warm ivory page background */
+  background-color: #FAF8F4;
+  color: #45413D;               /* soft charcoal for body text */
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  min-height: 100vh;
+  padding: 48px 16px 88px;
+}
+
+
+/* ---------------------------------------------------------
+   3. PAGE WRAPPER — centers content, max 680px
+   --------------------------------------------------------- */
+
+.app-wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+
+/* ---------------------------------------------------------
+   4. HEADER
+   The header fades in slightly after the card so the eye
+   lands on the title first, then the card below.
+   --------------------------------------------------------- */
+
+.app-header {
+  text-align: center;
+  margin-bottom: 36px;
+  animation: fadeUp 0.5s ease both;
+}
+
+.app-header h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #3C3028;               /* deep espresso — richest text */
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.app-header p {
+  font-size: 0.95rem;
+  color: #82796F;               /* muted secondary text */
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+
+/* ---------------------------------------------------------
+   5. MAIN CARD
+   Entrance: fade-up over 0.5 s with a small delay so the
+   header appears first. Shadow is layered for depth.
+   --------------------------------------------------------- */
+
+.todo-card {
+  background-color: #FFFFFF;    /* warm white card surface */
+  border: 1px solid #EAE2D8;   /* subtle warm border */
+  border-radius: 20px;
+  /* Two shadow layers: a soft ambient + a very faint bottom edge */
+  box-shadow:
+    0 4px 24px rgba(60, 48, 40, 0.07),
+    0 1px 4px  rgba(60, 48, 40, 0.04);
+  padding: 36px 36px 32px;
+  /* Card entrance animation, starts 0.1 s after header */
+  animation: fadeUp 0.55s ease 0.1s both;
+  /* Smooth shadow change on hover */
+  transition: box-shadow 0.25s ease;
+}
+
+/* Very subtle lift on card hover — adds life without distraction */
+.todo-card:hover {
+  box-shadow:
+    0 8px 32px rgba(60, 48, 40, 0.10),
+    0 2px 6px  rgba(60, 48, 40, 0.05);
+}
+
+
+/* ---------------------------------------------------------
+   6. CARD SECTION LABEL — small uppercase tag above the form
+   --------------------------------------------------------- */
+
+.todo-card-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #A9845B;               /* muted bronze */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+
+/* ---------------------------------------------------------
+   7. FORM — input and button sit side by side
+   --------------------------------------------------------- */
+
+.todo-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+
+/* ---------------------------------------------------------
+   8. INPUT
+   Soft champagne tint on focus, bronze border highlight.
+   --------------------------------------------------------- */
+
+#todo-input {
+  flex: 1;
+  background-color: #FAF8F4;   /* matches page — feels natural */
+  border: 1.5px solid #EAE2D8;
+  border-radius: 11px;
+  padding: 13px 17px;
+  font-size: 0.95rem;
+  color: #3C3028;
+  outline: none;
+  /* Smooth border-color and shadow when focused */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+#todo-input::placeholder {
+  color: #BDB5AE;
+}
+
+/* Focus: champagne tint background + bronze ring */
+#todo-input:focus {
+  background-color: #FDF9F5;
+  border-color: #A9845B;
+  box-shadow: 0 0 0 3px rgba(169, 132, 91, 0.13);
+}
+
+
+/* ---------------------------------------------------------
+   9. SUBMIT BUTTON
+   Bronze fill, white text, gentle lift on hover.
+   Active state presses down slightly.
+   --------------------------------------------------------- */
+
+.todo-form button[type="submit"] {
+  background-color: #A9845B;   /* muted bronze */
+  color: #FFFFFF;
+  border: none;
+  border-radius: 11px;
+  padding: 13px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  /* Three properties transition together */
+  transition:
+    background-color 0.2s ease,
+    transform        0.15s ease,
+    box-shadow       0.2s ease;
+}
+
+/* Hover: darken bronze + lift 1 px + add a light shadow */
+.todo-form button[type="submit"]:hover {
+  background-color: #8E6D47;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(169, 132, 91, 0.28);
+}
+
+/* Active (click): press down slightly */
+.todo-form button[type="submit"]:active {
+  background-color: #7D5E3A;
+  transform: translateY(0px) scale(0.97);
+  box-shadow: none;
+}
+
+/* Keyboard focus ring for accessibility */
+.todo-form button[type="submit"]:focus-visible {
+  outline: 3px solid rgba(169, 132, 91, 0.45);
+  outline-offset: 3px;
+}
+
+
+/* ---------------------------------------------------------
+   10. DIVIDER — thin warm line between form and list
+   --------------------------------------------------------- */
+
+.todo-divider {
+  border: none;
+  border-top: 1px solid #EAE2D8;
+  margin-bottom: 22px;
+}
+
+
+/* ---------------------------------------------------------
+   11. TODO LIST — ul populated by JavaScript getData()
+   --------------------------------------------------------- */
+
+#todos-output {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;                     /* a little more breathing room */
+}
+
+
+/* ---------------------------------------------------------
+   12. TODO LIST ITEMS — each <li> is injected by JS
+   --------------------------------------------------------- */
+
+/* Each todo row */
+#todos-output li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FAF8F4;   /* warm ivory — matches page bg */
+  border: 1px solid #EAE2D8;
+  border-radius: 11px;
+  padding: 13px 16px;
+  font-size: 0.93rem;
+  color: #45413D;
+  word-break: break-word;
+  /* Smooth color and border change on hover */
+  transition:
+    background-color 0.18s ease,
+    border-color     0.18s ease;
+}
+
+/* Hover: warm champagne tint */
+#todos-output li:hover {
+  background-color: #F0E5D5;
+  border-color: #E7D8C5;
+}
+
+
+/* ---------------------------------------------------------
+   13. DELETE BUTTON — inside each <li> created by JS
+   Starts as a muted warm grey, turns soft red on hover.
+   --------------------------------------------------------- */
+
+#todos-output li button {
+  background: none;
+  border: none;
+  color: #C8C0B8;               /* subtle warm grey */
+  font-size: 0.88rem;
+  cursor: pointer;
+  padding: 5px 7px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  margin-left: 14px;
+  transition:
+    color            0.18s ease,
+    background-color 0.18s ease;
+}
+
+/* Hover: soft warm-red tint */
+#todos-output li button:hover {
+  color: #A04545;
+  background-color: rgba(160, 69, 69, 0.09);
+}
+
+/* Keyboard focus ring */
+#todos-output li button:focus-visible {
+  outline: 2px solid rgba(169, 132, 91, 0.4);
+  outline-offset: 2px;
+}
+
+
+/* ---------------------------------------------------------
+   14. EMPTY STATE — .todo-empty class (CSS-only helper)
+   --------------------------------------------------------- */
+
+.todo-empty {
+  text-align: center;
+  color: #BDB5AE;
+  font-size: 0.88rem;
+  padding: 28px 0 10px;
+}
+
+
+/* ---------------------------------------------------------
+   15. FOOTER
+   --------------------------------------------------------- */
+
+.app-footer {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 0.77rem;
+  color: #BDB5AE;
+  letter-spacing: 0.02em;
+}
+
+
+/* ---------------------------------------------------------
+   16. RESPONSIVE — tablet & mobile
+   --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  body {
+    padding: 32px 14px 64px;
+  }
+
+  .app-header h1 {
+    font-size: 1.7rem;
+  }
+
+  .todo-card {
+    padding: 26px 20px 22px;
+    border-radius: 16px;
+  }
+
+  /* Stack input and button vertically on narrow screens */
+  .todo-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .todo-form button[type="submit"] {
+    width: 100%;
+    text-align: center;
+    /* Remove hover lift on touch — no hover on mobile */
+    transform: none;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   17. REDUCED MOTION
+   Users who prefer reduced motion get no animations or
+   transitions — the page still looks great, just still.
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Disable entrance animations */
+  .app-header,
+  .todo-card {
+    animation: none;
+  }
+
+  /* Disable all transitions */
+  *, *::before, *::after {
+    transition: none !important;
+  }
+}

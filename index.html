@@ -3,19 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+
+    <!-- Font Awesome (existing — do not remove) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+      integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Premium redesign stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <title>My Todo</title>
   </head>
   <body>
-    <h1>Supabase</h1>
 
-    <form onsubmit="addTodo(event)">
-      <input type="text" id="todo-input" />
-      <button type="submit">Add Todo</button>
-    </form>
+    <!-- Page wrapper — centers content, max 680px -->
+    <div class="app-wrapper">
 
-    <ul id="todos-output"></ul>
+      <!-- Header -->
+      <header class="app-header">
+        <h1>My Todo</h1>
+        <p>A calmer way to organize your day</p>
+      </header>
 
+      <!-- Main card -->
+      <main class="todo-card">
+
+        <!-- Small label above form -->
+        <p class="todo-card-title">Add a new task</p>
+
+        <!-- Form — preserves existing onsubmit and IDs exactly -->
+        <form class="todo-form" onsubmit="addTodo(event)">
+          <input
+            type="text"
+            id="todo-input"
+            placeholder="What do you need to do?"
+            aria-label="New todo task"
+          />
+          <button type="submit">Add Todo</button>
+        </form>
+
+        <!-- Divider between form and list -->
+        <hr class="todo-divider" />
+
+        <!-- Todo list — rendered by existing getData() in ecmaScript.js -->
+        <ul id="todos-output"></ul>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>Powered by Supabase</p>
+      </footer>
+
+    </div><!-- end .app-wrapper -->
+
+    <!-- Supabase CDN (existing — must stay before ecmaScript.js) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Existing JavaScript logic (unchanged) -->
     <script src="ecmaScript.js"></script>
+
   </body>
 </html>
